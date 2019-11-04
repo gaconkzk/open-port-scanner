@@ -1,4 +1,3 @@
-extern crate opslib;
 use opslib::rawsock::{PCap, RawSock};
 
 

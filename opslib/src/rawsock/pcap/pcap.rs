@@ -3,7 +3,7 @@ use super::dll::{PCapDll, PCapHandle, PCapPacketHeader};
 use dlopen::wrapper::Container;
 use super::super::err::Error;
 use std::ffi::{CStr, CString};
-use libc::{c_char, c_void, c_uint, c_int};
+use libc::{c_char, c_int};
 use std::mem::uninitialized;
 
 const PCAP_ERRBUF_SIZE: usize = 256; //taken from header, is it platform independent?
@@ -64,7 +64,7 @@ impl<'a> Interface for PCapInterface<'a> {
 
     fn receive(&self) {
         let mut header: PCapPacketHeader = unsafe {uninitialized()};
-        let data = unsafe { self.dll.pcap_next(self.handle, &mut header)};
+        unsafe { self.dll.pcap_next(self.handle, &mut header)};
     }
 
     fn flush(&self) {
